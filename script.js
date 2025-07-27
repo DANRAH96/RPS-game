@@ -26,7 +26,7 @@ function getComputerChoice(){
 //TRANSFORM userChoice to lowercase
 let humanChoice;
 function getHumanChoice(){
-    humanChoice = prompt("Enter your choice").toLowerCase();
+   // humanChoice = prompt("Enter your choice").toLowerCase();
     console.log(humanChoice);
 }
 
@@ -75,9 +75,9 @@ function playRound(humanChoice, computerChoice){
 
 
 
-let numberOfRounds = parseInt(prompt("How many rounds do you want to play?"));
-function playGame(numberOfRounds){
-    for(let i=0; i<numberOfRounds; i++){
+//let numberOfRounds = parseInt(prompt("How many rounds do you want to play?"));
+function playGame(){
+    while(userScore < 5 &&  computerScore < 5 ){
         getComputerChoice();
         getHumanChoice();
 
@@ -93,6 +93,7 @@ function playGame(numberOfRounds){
         console.log("It's a draw!");
     }
 }
-playGame(numberOfRounds);
+playGame();
 //ITERATE 5 times
 //OUTPUT winner
+
