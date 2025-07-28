@@ -1,9 +1,18 @@
+//Modify scores 
+const userScoreDisplay = document.querySelector(".user-points");
+const computerScoreDisplay = document.querySelector(".computer-points");
 
+const userChoice = document.querySelector(".users-choice")
 
+//INIT variables
+let computerChoice;
+let humanChoice;
+let computerScore = 0;
+let userScore = 0;
 //Pseudo code 
 
-//INIT computerChoice
-let computerChoice;
+
+
 //ASSIGN random value to computerChoice
 function getComputerChoice(){
     let randomValue = Math.floor(Math.random()*3);
@@ -15,25 +24,8 @@ function getComputerChoice(){
     }else{
         computerChoice = "scissor";
     }
-    console.log(computerChoice);
+    return computerChoice;
 };
-
-
-
-
-
-//INPUT userChoice
-//TRANSFORM userChoice to lowercase
-let humanChoice;
-function getHumanChoice(){
-   // humanChoice = prompt("Enter your choice").toLowerCase();
-    console.log(humanChoice);
-}
-
-
-//INIT score variables
-let computerScore = 0;
-let userScore = 0;
 
 //FUNCTION to play a round
 function playRound(humanChoice, computerChoice){
@@ -47,53 +39,66 @@ function playRound(humanChoice, computerChoice){
             break;
         case(humanChoice == "rock" && computerChoice == "scissor"):
             console.log("You win the round");
-            userScore++;
+            ++userScore;
             break;
         case(humanChoice == "rock" && computerChoice =="paper"):
             console.log("Computer win the round");
-            computerScore++;
+            ++computerScore;
             break;
         case(humanChoice == "paper" && computerChoice =="rock"):
             console.log("You win the round");
-            userScore++;
+            ++userScore;
             break;
         case(humanChoice == "paper" && computerChoice =="scissor"):
             console.log("Computer win the round");
-            computerScore++;
+            ++computerScore;
             break;
         case(humanChoice == "scissor" && computerChoice =="paper"):
             console.log("You win the round");
-            userScore++;
+            ++userScore;
             break;
          case(humanChoice == "scissor" && computerChoice =="rock"):
             console.log("Computer win the round");
-            computerScore++;
+            ++computerScore;
             break;
         
     }
+    computerScoreDisplay.textContent = computerScore;
+    userScoreDisplay.textContent = userScore;
 }
+//Add event listener for choice class
+userChoice.addEventListener("click", (e)=>{
+    humanChoice = e.target.className;
+    computerChoice = getComputerChoice();
 
+    playRound(humanChoice, computerChoice);
 
+    //announce winner
+    announceWinner(userScore, computerScore);
 
-//let numberOfRounds = parseInt(prompt("How many rounds do you want to play?"));
-function playGame(){
-    while(userScore < 5 &&  computerScore < 5 ){
-        getComputerChoice();
-        getHumanChoice();
-
-        playRound(humanChoice, computerChoice);
-        console.log(userScore);
-        console.log(computerScore); 
+    //reset game
+    if(userScore == 5 || computerScore == 5){
+        userScore = 0;
+        computerScore = 0;
     }
-    if(userScore > computerScore){
-        console.log("User wins the game!");
-    }else if(computerScore > userScore){
-        console.log("Computer wins the game");
-    }else {
-        console.log("It's a draw!");
-    }
+})
+
+//Announce winner
+function announceWinner(usersScore, computersScore){
+    if(usersScore === 5){
+        userScore = 0;
+        computerScore = 0;
+        computerScoreDisplay.textContent = computerScore;
+        userScoreDisplay.textContent = userScore;
+        alert("You are the winner")
+        
+        return [computerScore, userScore]
+    }else if(computersScore === 5){
+        userScore = 0;
+        computerScore = 0;
+        computerScoreDisplay.textContent = computerScore;
+        userScoreDisplay.textContent = userScore;
+        alert("The computer takes the win!");
+   
+    };
 }
-playGame();
-//ITERATE 5 times
-//OUTPUT winner
-
